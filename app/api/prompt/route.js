@@ -6,9 +6,18 @@ export const GET = async (req) => {
         await connectToDB();
         const prompts = await Prompt.find({}).populate('creator');
 
+        const headers = {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-store, max-age=0', // Prevent caching
+        };
+
         return new Response(JSON.stringify(prompts),{
-            status: 200
+            status: 200,
+            headers:headers,
         })
+
+        
+
     }catch(error){
         return new Response("Failed to fetch a new Prompt !!");
     }
