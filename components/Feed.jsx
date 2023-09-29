@@ -35,7 +35,7 @@ const Feed = () => {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [allPosts]);
 
   const filterPrompts = (searchtext) => {
     const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
@@ -69,6 +69,7 @@ const Feed = () => {
 
   return (
     <section className='feed'>
+      <h1></h1>
       <form className='relative w-full flex-center'>
         <input
           type='text'
