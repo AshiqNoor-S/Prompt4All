@@ -5,7 +5,7 @@ import Provider from "@components/Provider";
 import Footer from "@components/Footer";
 
 export const metadata = {
-  title: "Promptopia",
+  title: "Prompt4All",
   description: "Discover & Share AI Prompts",
 };
 
