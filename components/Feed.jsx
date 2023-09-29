@@ -4,11 +4,9 @@ import { useState, useEffect } from "react";
 
 import PromptCard from "./PromptCard";
 
-// PromptCardList component
-
-const PromptCardList = ({ data, handleTagClick, newPosts }) => {
+const PromptCardList = ({ data, handleTagClick }) => {
   return (
-    <div className="mt-16 prompt_layout">
+    <div className='mt-16 prompt_layout'>
       {data.map((post) => (
         <PromptCard
           key={post._id}
@@ -16,37 +14,28 @@ const PromptCardList = ({ data, handleTagClick, newPosts }) => {
           handleTagClick={handleTagClick}
         />
       ))}
-
     </div>
   );
 };
 
-// Feed component
-
 const Feed = () => {
   const [allPosts, setAllPosts] = useState([]);
-  const [updateInterval, setUpdateInterval] = useState(null);
-  const [newPosts, setNewPosts] = useState([]);
+
   // Search states
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState([]);
 
+  const fetchPosts = async () => {
+    const response = await fetch("/api/prompt");
+    const data = await response.json();
+
+    setAllPosts(data);
+  };
+
   useEffect(() => {
-      const fetchPosts = async () => {
-      const response = await fetch("/api/prompt");
-      const data = await response.json();
-
-      // Update the allPosts state variable with the new posts
-      setAllPosts([...allPosts, ...data]);
-
-      // Update the newPosts state variable with the new posts
-      setNewPosts(data);
-    };
     fetchPosts();
-
-    // Fetch the new posts whenever the newPosts state variable changes
-  }, [newPosts]);
+  }, []);
 
   const filterPrompts = (searchtext) => {
     const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
@@ -79,16 +68,15 @@ const Feed = () => {
   };
 
   return (
-    <section className="feed">
-      <form className="relative w-full flex-center">
-        <h1></h1>
+    <section className='feed'>
+      <form className='relative w-full flex-center'>
         <input
-          type="text"
-          placeholder="Search for a tag or a username"
+          type='text'
+          placeholder='Search for a tag or a username'
           value={searchText}
           onChange={handleSearchChange}
           required
-          className="search_input peer"
+          className='search_input peer'
         />
       </form>
 
@@ -97,14 +85,9 @@ const Feed = () => {
         <PromptCardList
           data={searchedResults}
           handleTagClick={handleTagClick}
-          newPosts={newPosts}
         />
       ) : (
-        <PromptCardList
-          data={allPosts}
-          handleTagClick={handleTagClick}
-          newPosts={newPosts}
-        />
+        <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
       )}
     </section>
   );
