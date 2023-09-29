@@ -20,22 +20,29 @@ const PromptCardList = ({ data, handleTagClick }) => {
 
 const Feed = () => {
   const [allPosts, setAllPosts] = useState([]);
-
+  const [updateInterval, setUpdateInterval] = useState(null);
   // Search states
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState([]);
 
-  
-
-  useEffect(() => {
+  const startUpdatingPosts = () => {
     const fetchPosts = async () => {
       const response = await fetch("/api/prompt");
       const data = await response.json();
       setAllPosts(data);
     };
     fetchPosts();
-  });
+
+    // Start a repeating interval to fetch posts every 10 seconds
+    const intervalId = setInterval(fetchPosts, 10000);
+    setUpdateInterval(intervalId);
+  };
+
+  useEffect(() => {
+    startUpdatingPosts();
+    
+  },[allPosts]);
 
   const filterPrompts = (searchtext) => {
     const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
