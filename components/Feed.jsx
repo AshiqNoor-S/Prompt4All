@@ -6,7 +6,7 @@ import PromptCard from "./PromptCard";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
-    <div className='mt-16 prompt_layout'>
+    <div className='mt-8 prompt_layout'>
       {data.map((post) => (
         <PromptCard
           key={post._id}
@@ -81,6 +81,8 @@ const Feed = () => {
         />
       </form>
 
+      <h1 className="head2_text blue_gradient text-center">Scroll down to the world of creative prompts</h1>
+      <h1 className="head2_text">⬇️</h1>
       {/* All Prompts */}
       {searchText ? (
         <PromptCardList

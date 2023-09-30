@@ -11,14 +11,14 @@ const Form = ({
 }) => {
   return (
     <section className="w-full max-w-full flex-start flex-col">
-      <h1 className='head_text text-left'><span className='blue_gradient'>Post</span>{type} </h1>
+      <h1 className='head_text text-left'>{type} your <span className='blue_gradient'>Prompt</span></h1>
       <p className='desc text-left max-w-md'>
-        {type} and share amazing prompts with the world, and let your imagination run wild with any AI-powered platform.
+        {type} and share precise prompts with your peers, and let your imagination run wild with any AI-powered platform.
       </p>
 
     <form 
     onSubmit={handleSubmit}
-    className='mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism'
+    className='mt-10 my-8 w-full max-w-2xl flex flex-col gap-7 glassmorphism'
     >
       <label>
         <span className='font-satoshi font-semibold text-base text-gray-700'>Your AI Prompt</span>
@@ -36,7 +36,7 @@ const Form = ({
       </label>
 
       <label>
-        <span className='font-satoshi font-semibold text-base text-gray-700'>Tag {`  `}<span>#product, #webdevelopment, #machinelearning</span></span>
+        <span className='font-satoshi font-semibold text-base text-gray-700'>Tag {`  `}<span>#product, #webdevelopment, #machinelearning etc.</span></span>
 
         <input
           value={post.tag}
@@ -51,14 +51,14 @@ const Form = ({
       </label>
 
       <div className="flex-end mx-3 mb-5 gap-4">
-        <Link href="/" className="text-gray-500 text-sm">
+        <Link href="/" className="px-5 py-1.5 text-sm text-gray-500 rounded-full hover:bg-blue-700 hover:text-white">
           cancel
         </Link>
 
         <button
         type="submit"
         disabled={submitting}
-        className='px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white'
+        className='px-5 py-1.5 text-sm bg-blue-700 hover:bg-blue-950 rounded-full text-white'
         >
           {submitting ? `${type}...` : type}
         </button>
